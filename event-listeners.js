@@ -172,3 +172,89 @@ canvas.addEventListener('mousedown', e => {
           selectedObject.material.shininess = value;
         }
     });
+
+
+    // Texture controls
+    document.getElementById('use-texture').addEventListener('change', function() {
+      if(selectedObject) {
+        selectedObject.useTexture = this.checked;
+        document.getElementById('texture-controls').style.display = this.checked ? 'block' : 'none';
+      }
+    });
+
+    document.getElementById('load-texture').addEventListener('click', loadTextureForSelected);
+
+    // Bump map controls
+    document.getElementById('use-bump').addEventListener('change', function() {
+      if(selectedObject) {
+        selectedObject.useBump = this.checked;
+        document.getElementById('bump-controls').style.display = this.checked ? 'block' : 'none';
+      }
+    });
+
+    document.getElementById('load-bump').addEventListener('click', loadBumpForSelected);
+
+    document.getElementById('bump-strength').addEventListener('input', function() {
+      let value = this.value / 50;
+      document.getElementById('bump-strength-value').textContent = value.toFixed(2);
+      if(selectedObject) {
+        selectedObject.bumpStrength = value;
+      }
+    });
+
+
+
+    function rgbToHex(rgbArray) {
+      const r = Math.round(rgbArray[0] * 255);
+      const g = Math.round(rgbArray[1] * 255);
+      const b = Math.round(rgbArray[2] * 255);
+      const toHex = (c) => {
+        const hex = c.toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+      };
+      return '#' + toHex(r) + toHex(g) + toHex(b);
+    }
+
+    function hexToRgbArray(hex) {
+      const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+      });
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? [
+        parseInt(result[1], 16) / 255.0,
+        parseInt(result[2], 16) / 255.0, 
+        parseInt(result[3], 16) / 255.0 
+      ] : null;
+    }
+
+    
+    function setShapeHtmlProperties(s) {
+      document.getElementById("rot-x-speed").value = s.rotXSpeed;
+      document.getElementById("rot-y-speed").value = s.rotYSpeed;
+      document.getElementById("rot-z-speed").value = s.rotZSpeed;
+      document.getElementById("color-1").value = rgbToHex(s.color1);
+      document.getElementById("color-2").value = rgbToHex(s.color2);
+      
+      let mat = s.material || {ambient: 0.3, diffuse: 0.8, specular: 1.0, shininess: 32.0};
+      document.getElementById("ambient").value = mat.ambient * 100;
+      document.getElementById("ambient-value").textContent = mat.ambient.toFixed(2);
+      document.getElementById("diffuse").value = mat.diffuse * 100;
+      document.getElementById("diffuse-value").textContent = mat.diffuse.toFixed(2);
+      document.getElementById("specular").value = mat.specular * 100;
+      document.getElementById("specular-value").textContent = mat.specular.toFixed(2);
+      document.getElementById("shininess").value = mat.shininess;
+      document.getElementById("shininess-value").textContent = mat.shininess.toFixed(0);
+      
+      // Texture properties
+      document.getElementById("use-texture").checked = s.useTexture || false;
+      document.getElementById("texture-controls").style.display = s.useTexture ? "block" : "none";
+      document.getElementById("texture-url").value = s.textureUrl || "";
+      
+      // Bump map properties
+      document.getElementById("use-bump").checked = s.useBump || false;
+      document.getElementById("bump-controls").style.display = s.useBump ? "block" : "none";
+      document.getElementById("bump-url").value = s.bumpUrl || "";
+      document.getElementById("bump-strength").value = (s.bumpStrength || 1.0) * 50;
+      document.getElementById("bump-strength-value").textContent = (s.bumpStrength || 1.0).toFixed(2);
+    }
