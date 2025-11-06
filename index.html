@@ -27,7 +27,7 @@
 
 <body>
   <h2>Interactive Controls & Hierarchy & Lighting</h2>
-  <p><a href='https://github.com/invigoro/cs512-hw4'>View on Github</a></p>
+  <p><a href='https://github.com/invigoro/cs512-hw5'>View on Github</a></p>
   <p>
     Use mouse to drag and manipulate objects.<br>
     Use arrow keys and w, s keys to move the camera.<br>
@@ -723,29 +723,13 @@ function hexToRgbArray(hex) {
         gl.disable(gl.CULL_FACE);
         gl.uniform1f(uOpacityLoc, pulseOpacity);
 
-        gl.uniformMatrix4fv(uMTM, false, transformMatrix);
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, s.vbo);
-        gl.enableVertexAttribArray(posLoc);
-        gl.vertexAttribPointer(posLoc, 3, gl.FLOAT, false, 0, 0);
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, s.normalBuffer);
-        gl.enableVertexAttribArray(normalLoc);
-        gl.vertexAttribPointer(normalLoc, 3, gl.FLOAT, false, 0, 0);
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, s.nbo);
-        gl.enableVertexAttribArray(colorLoc);
-        gl.vertexAttribPointer(colorLoc, 3, gl.FLOAT, false, 0, 0);
-
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, s.ibo);
-        gl.drawElements(gl.TRIANGLES, s.length, gl.UNSIGNED_SHORT, 0);
       } else {
         gl.uniform1f(uOpacityLoc, 1.0);
         gl.disable(gl.CULL_FACE);
         gl.enableVertexAttribArray(colorLoc);
 
+      }
         gl.uniformMatrix4fv(uMTM, false, transformMatrix);
-
         gl.bindBuffer(gl.ARRAY_BUFFER, s.vbo);
         gl.enableVertexAttribArray(posLoc);
         gl.vertexAttribPointer(posLoc, 3, gl.FLOAT, false, 0, 0);
@@ -760,7 +744,7 @@ function hexToRgbArray(hex) {
 
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, s.ibo);
         gl.drawElements(gl.TRIANGLES, s.length, gl.UNSIGNED_SHORT, 0);
-      }
+      
 
       if (s.children && s.children.length > 0) {
         for (let j = 0; j < s.children.length; j++) {
@@ -794,16 +778,15 @@ function hexToRgbArray(hex) {
       // Set camera position for specular calculations
       gl.uniform3fv(uViewPos, [-camX, -camY, -camZ]);
 
-      // Set up two point lights
+      // Set up two point lights for now, maybe modify this to support more later? idk
       // Light 1: Main light positioned above and to the front
       gl.uniform3fv(uLightPos1, [3, 5, 2]);
-      gl.uniform3fv(uLightColor1, [1.0, 1.0, 1.0]); // White light
+      gl.uniform3fv(uLightColor1, [1.0, 1.0, 1.0]); 
 
       // Light 2: Fill light from the side
       gl.uniform3fv(uLightPos2, [-4, 2, -1]);
-      gl.uniform3fv(uLightColor2, [0.6, 0.7, 1.0]); // Slightly blue tinted
+      gl.uniform3fv(uLightColor2, [0.6, 0.7, 1.0]); // slightly blue tinted
 
-      // Set shading mode
       gl.uniform1i(uFlatShading, flatShading ? 1 : 0);
 
       for (let i = 0; i < shapesGlobal.length; i++) {
