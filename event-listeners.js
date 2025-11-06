@@ -1,3 +1,13 @@
+    // WebGL setup
+    const canvas = document.getElementById("glcanvas");
+    const gl = canvas.getContext("webgl2");
+    if (!gl) alert("WebGL2 not supported");
+
+    let vertEditor = document.getElementById("vertEditor");
+    let fragEditor = document.getElementById("fragEditor");
+    vertEditor.value = document.getElementById("vertex-shader").textContent;
+    fragEditor.value = document.getElementById("fragment-shader").textContent;
+
 canvas.addEventListener('mousedown', e => {
       const rect = canvas.getBoundingClientRect();
       const mouseX = e.clientX - rect.left;
