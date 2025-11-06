@@ -13,6 +13,8 @@ function drawPlanets() {
     p1.material.specular = 1.0;
     p1.material.diffuse = .50;
     p1.material.ambient = .65;
+    p1.useTexture = true;
+    loadQuickTexture('Fire', p1);
 
     //sunspots
     for(let i = 0; i < 6; i++) {
@@ -166,6 +168,8 @@ function drawPlanets() {
         st1.material.ambient = 0.3;
         st1.material.shininess = 100;
         st1.material.specular = .13;
+    st1.useTexture = true;
+    loadQuickTexture("Metal", st1);
 
     //Space Station center cylinder
     let st1cyl1 = createShape("Cylinder", st1);
@@ -177,6 +181,8 @@ function drawPlanets() {
         st1cyl1.material.ambient = 0.3;
         st1cyl1.material.shininess = 100;
         st1cyl1.material.specular = .13;
+    st1cyl1.useTexture = true;
+    loadQuickTexture("Metal", st1cyl1);
 
     // Space station ring cylinders
     let nCylinders = 8;
@@ -217,4 +223,9 @@ function drawPlanets() {
     p5m1.scaX = 0.5;
     p5m1.scaY = 0.5;
     p5m1.scaZ = 0.5;
+
+    let foreignObject = createShape("Cube", p1);
+    foreignObject.posZ = -4;
+    foreignObject.useTexture = true;
+    loadQuickTexture("Austin Powers", foreignObject);
 }

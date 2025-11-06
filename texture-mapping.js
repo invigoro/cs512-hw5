@@ -121,21 +121,23 @@ function updateAnimatedTextures() {
 
 
 
-function loadQuickTexture(type) {
-      if (!selectedObject) return;
+function loadQuickTexture(type, obj = null) {
+    obj = obj ?? selectedObject;
+      if (!obj) return;
       const url = quickTextures[type];
       document.getElementById("texture-url").value = url;
-      loadTextureForSelected();
+      loadTextureForSelected(obj);
     }
 
-    function loadTextureForSelected() {
-      if (!selectedObject) return;
+    function loadTextureForSelected(obj = null) {
+    obj = obj ?? selectedObject;
+      if (!obj) return;
       const url = document.getElementById("texture-url").value;
       if (!url) return;
       
-      selectedObject.textureUrl = url;
+      obj.textureUrl = url;
       loadTexture(gl, url, (tex) => {
-        selectedObject.texture = tex;
+        obj.texture = tex;
         document.getElementById("texture-preview").src = url;
         document.getElementById("texture-preview").style.display = "block";
       });
