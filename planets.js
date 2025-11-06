@@ -105,6 +105,9 @@ function drawPlanets() {
     0.42745098039215684,
     0.058823529411764705
 ])
+p3.useBump = true;
+loadBumpForSelected(p3, quickTextures["Islands Terrain"]);
+
     //Planet 3 Moon1
     let p3m1 = createShape("Sphere", p3);
     p3m1.posX = 4;
@@ -227,5 +230,5 @@ function drawPlanets() {
     let foreignObject = createShape("Cube", p1);
     foreignObject.posZ = -4;
     foreignObject.useTexture = true;
-    loadQuickTexture("Austin Powers", foreignObject);
+    loadQuickTexture("Interstellar", foreignObject);
 }

@@ -116,7 +116,8 @@ function updateAnimatedTextures() {
       'Water':  `${GHpref}/water1.png`,
       'Wood':  `${GHpref}/wood1.png`,
       'Metal': `${GHpref}/metal1.png`,
-      'Austin Powers': 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGxzNzV6bnZ0bWs3aW1tbjBvZGRwYWI3MnBzZ2QwcG5pMTY0c3BqdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0IykG0AM7911MrCM/giphy.gif'
+      'Austin Powers': 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGxzNzV6bnZ0bWs3aW1tbjBvZGRwYWI3MnBzZ2QwcG5pMTY0c3BqdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0IykG0AM7911MrCM/giphy.gif',
+      'Interstellar': 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExemw4a3Z6cXoxZjN2dmRvbmE4bGF5MnJrOGI3M2hlaGs5ODY5andydiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vR4CdLInXOhr3rO/giphy.gif'
     };
 
 
@@ -143,14 +144,15 @@ function loadQuickTexture(type, obj = null) {
       });
     }
 
-    function loadBumpForSelected() {
-      if (!selectedObject) return;
-      const url = document.getElementById("bump-url").value;
+    function loadBumpForSelected(obj = null, url = null) {
+    obj = obj ?? selectedObject;
+      if (!obj) return;
+      url = url ?? document.getElementById("bump-url").value;
       if (!url) return;
       
-      selectedObject.bumpUrl = url;
+      obj.bumpUrl = url;
       loadTexture(gl, url, (tex) => {
-        selectedObject.bumpTexture = tex;
+        obj.bumpTexture = tex;
         document.getElementById("bump-preview").src = url;
         document.getElementById("bump-preview").style.display = "block";
       });
