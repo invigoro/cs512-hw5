@@ -73,7 +73,7 @@ function loadTexture(gl, url, callback) {
 
   // Create a video element
   const video = document.createElement('video');
-  video.src = url.replace('.gif', '.mp4'); // try to use mp4 if available
+  video.src = url.replace('.gif', '.mp4'); // try to use mp4 if available. since gify and others do this
   video.crossOrigin = "anonymous";
   video.loop = true;
   video.muted = true;
@@ -100,7 +100,7 @@ function updateAnimatedTextures() {
 }
     
     const GHpref = 'https://raw.githubusercontent.com/invigoro/cs512-hw5/refs/heads/main/images/textures'; //i don't think this is dynamic. lel
-    // Quick texture URLs
+    //have to use GH urls since loading local files doesn't work in webgl
     const quickTextures = {
       'Dirt': `${GHpref}/dirt1.png`,
       'Fire': `${GHpref}/fire1.png`,

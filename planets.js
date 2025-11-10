@@ -145,6 +145,10 @@ loadBumpForSelected(p3, quickTextures["Islands Terrain"]);
         0.5176470588235295,
         0.14901960784313725
     ])
+    p4.useTexture = true;
+    loadQuickTexture("Islands Terrain", p4);
+    p4.useBump = true;
+    loadBumpForSelected(p4, quickTextures["Islands Terrain"]);
 
     //Planet 4 Moon1
     let p4m1 = createShape("Sphere", p4);
